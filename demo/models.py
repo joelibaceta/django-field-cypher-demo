@@ -2,12 +2,10 @@ from cryptography.fernet import Fernet
 from django.db import models
 from demo.cipher_field import CipherField
 
- 
-
 # Create your models here.
 class Member(models.Model):
   
-  first_name = CipherField(max_length=255, token=b'Vc8uW6Xxwf2eyqiovz-GxjjUp1Hb-7_IUOZwpQoLiQ8=')
+  first_name = CipherField(max_length=255, token=b'mi84uq0CPvQF1hPbU-pbXy3uKr1iRgSgw1D24vZ_5tA=')
   last_name = models.CharField(max_length=255)
   email = models.EmailField()
   phone = models.CharField(max_length=12)

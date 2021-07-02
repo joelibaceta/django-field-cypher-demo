@@ -9,9 +9,12 @@ class MemberTest(TestCase):
     Member.objects.create(first_name='Charles', last_name='Woodman', email='charles@google.com', phone='242344553')
     Member.objects.create(first_name='Diane', last_name='Rustley', email='diane@mail.com', phone='93844943')
 
-  
+
+  def test_create(self):
+    member = Member.objects.create(first_name='Charles', last_name='Smith', email='charles@mail.com', phone='92823233')
+    self.assertEqual(member.first_name, 'Charles')
 
   def test_find_by(self):
-    member = Member.objects.get(first_name='Jhon')
+    member = Member.objects.filter(first_name='Jhon').first()
     print(member.first_name)
     self.assertEqual(member.first_name, 'Jhon')
