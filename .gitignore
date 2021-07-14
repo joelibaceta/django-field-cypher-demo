@@ -3,3 +3,5 @@ cipher-env
 __pycache__
 
 .idea/
+.venv/
+.python-version
