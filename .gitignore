@@ -1,3 +1,5 @@
 cipher-env
 .vscode
 __pycache__
+
+.idea/
