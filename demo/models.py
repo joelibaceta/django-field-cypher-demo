@@ -5,15 +5,11 @@ from demo.cipher_field import CipherField
 class CipherFieldManager(models.Manager):
 
     def filter(self, *args, **kwargs):
-        print('filter', kwargs)
-
         fields = [
             kwarg.split('__')[0]
             for kwarg in kwargs.keys()
             if kwarg.split('__')[0] in self.model.cipher_fields and len(kwarg.split('__')) == 1
         ]
-        print('fields', fields)
-
         if len(fields) > 0:
             values = [
                 kwargs[field]

@@ -14,6 +14,6 @@ class Cipher:
         try:
             decrypt = self.fernet.decrypt(value.encode('utf-8')).decode('utf-8')
         except Exception as msg:
-            print("Can't decrypt: ", msg)
+            # print("Can't decrypt: ", msg)
             return None
         return decrypt
