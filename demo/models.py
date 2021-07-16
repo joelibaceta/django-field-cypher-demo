@@ -1,5 +1,3 @@
-import django_filters
-from cryptography.fernet import Fernet
 from django.db import models
 from demo.cipher_field import CipherField
 
@@ -7,27 +5,34 @@ from demo.cipher_field import CipherField
 class CipherFieldManager(models.Manager):
 
     def filter(self, *args, **kwargs):
-        print('filter', kwargs)
-        if kwargs.get('first_name'):
-            menbers = Member.objects.all()
-            for menber in menbers:
-                if menber.first_name == kwargs.get('first_name'):
-                    return menber
-            # menber_list = Member.objects.all()
-            # menber_filter = UserFilter(kwargs, queryset=menber_list)
-            # print(menber_filter)
-            # return menber_filter
-        return self.get_queryset().filter(*args, **kwargs)
+        fields = [
+            kwarg.split('__')[0]
+            for kwarg in kwargs.keys()
+            if kwarg.split('__')[0] in self.model.cipher_fields and len(kwarg.split('__')) == 1
+        ]
+        if len(fields) > 0:
+            values = [
+                kwargs[field]
+                for field in fields
+            ]
 
-    # def get_queryset(self):
-    #     print('get_queryset')
-    #     print('self.model', self._hints)
-    #     print('self.model', self.model._meta.label, self.name)
-    #     menbers = Member.objects.all()
-    #     for menber in menbers:
-    #         if menber.first_name == self.model.first_name:
-    #             return menber
-    #     return None
+            data = self.get_queryset().values('id', *fields)
+
+            matched_ids = []
+            data_to_match = zip(fields, values)
+            for entry in data:
+                # for field in fields:
+                #     entry[field] = cipher.decrypt(entry[field])
+
+                if all(entry[field] == value for field, value in data_to_match):
+                    matched_ids.append(entry['id'])
+
+            for field in fields:
+                kwargs.pop(field)
+
+            kwargs['id__in'] = matched_ids
+
+        return super().filter(*args, **kwargs)
 
 
 # Create your models here.
@@ -37,40 +42,16 @@ class Member(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=12)
     objects = models.Manager()  # The default manager.
-    cipher = CipherFieldManager()  # The Dahl-specific manager.
+    cipher = CipherFieldManager()  # The Chiper-specific manager.
+    cipher_fields = ['first_name', ]
 
     def __str__(self):
         return self.first_name
 
+    # Filter the format basic and slow
     def filert_cipher_field(self, value):
         menbers = Member.objects.all()
         for menber in menbers:
             if menber.first_name == value:
                 return menber
         return None
-
-
-# def get(self, *args, **kwargs):
-#   fernet = Fernet('1rbDtUldG5WVoqdf-k22bptH2td6fiwylEeSNXa9tFw=')
-#   dec_message = fernet.decrypt(self.__dict__["first_name"].encode('utf-8')).decode('utf-8')
-#   self.first_name=dec_message
-#   super(Member, self).get(*args, **kwargs)
-
-# def __setattr__(self, attr, value):
-#   fernet = Fernet('1rbDtUldG5WVoqdf-k22bptH2td6fiwylEeSNXa9tFw=')
-#   if attr == 'first_name':
-#     c_first_name = fernet.encrypt(value.encode('utf-8')).decode('utf-8')
-#     super().__setattr__('first_name', c_first_name)
-#   else:
-#     super().__setattr__(attr, value)
-
-# def __getattr__(self, attr):
-#   fernet = Fernet('1rbDtUldG5WVoqdf-k22bptH2td6fiwylEeSNXa9tFw=')
-#   dec_message = fernet.decrypt(self.__dict__[attr].encode('utf-8')).decode('utf-8')
-#   return dec_message
-
-
-class UserFilter(django_filters.FilterSet):
-    class Meta:
-        model = Member
-        fields = ['first_name', 'last_name', 'email', 'phone', ]
