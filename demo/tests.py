@@ -15,6 +15,16 @@ class MemberTest(TestCase):
         member = Member.objects.create(first_name='Charles', last_name='Smith', email='charles@mail.com', phone='92823233')
         self.assertEqual(member.first_name, 'Charles')
 
+    def test_all(self):
+        member = Member.objects.first()
+        self.assertEqual(member.first_name, 'Jhon')
+
+    def test_get(self):
+        
+        print (Member.objects.__class__)
+        member = Member.objects.get(first_name='Diane')
+        self.assertEqual(member.first_name, 'Diane')
+
     def test_find_by(self):
         member = Member.cipher.filter(first_name='Jhon').first()
         self.assertEqual(member.first_name, 'Jhon')

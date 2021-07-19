@@ -1,12 +1,12 @@
 from django.db import models
-from demo.cipher import Cipher
-
+from demo.cipher_field.cipher import Cipher
 
 class CipherField(models.CharField):
     description = 'Encrypt your field'
 
     def __init__(self, *args, **kwargs):
         self.cipher = Cipher(kwargs['token'])
+        self.token = kwargs['token']
         kwargs.pop('token', None)
         super().__init__(*args, **kwargs)
 
