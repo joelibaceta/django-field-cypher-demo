@@ -20,8 +20,6 @@ class MemberTest(TestCase):
         self.assertEqual(member.first_name, 'Jhon')
 
     def test_get(self):
-        
-        print (Member.objects.__class__)
         member = Member.objects.get(first_name='Diane')
         self.assertEqual(member.first_name, 'Diane')
 
