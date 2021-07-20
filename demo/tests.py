@@ -9,6 +9,7 @@ class MemberTest(TestCase):
         Member.objects.create(first_name='Jhon', last_name='Alex', email='jhon@alex.com', phone='928882232')
         Member.objects.create(first_name='Juan', last_name='Perez', email='juan@mail.com', phone='23424546')
         Member.objects.create(first_name='Charles', last_name='Woodman', email='charles@google.com', phone='242344553')
+        Member.objects.create(first_name='Charles', last_name='Chaplin', email='charles@chapiln.com', phone='242344553')
         Member.objects.create(first_name='Diane', last_name='Rustley', email='diane@mail.com', phone='93844943')
 
     def test_create(self):
@@ -22,6 +23,10 @@ class MemberTest(TestCase):
     def test_get(self):
         member = Member.objects.get(first_name='Diane')
         self.assertEqual(member.first_name, 'Diane')
+
+    def test_get_two_fields(self):
+        member = Member.cipher.get(first_name='Charles', last_name='Woodman')
+        self.assertEqual(member.last_name, 'Woodman')
 
     def test_find_by(self):
         member = Member.cipher.filter(first_name='Jhon').first()
