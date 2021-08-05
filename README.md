@@ -10,15 +10,16 @@ An experiment about building a custom encrypted field
  python manage.py migrate
  python manage.py loaddata person.json
  python manage.py createsuperuser 
+ python manage.py makemigrations --empty demo
+
  ```
 
-3. In folder migrations the project demo create file and name 0002_migrate_cipher.py
-4. Copy and paste this extrac code
+3. Copy and paste this extrac code in migration empty create
 
 ```python
 from django.db import migrations
 
-from demo.cipher_migrate import cipher_name, cipher_phone
+from demo.cipher_migrate import encrypt_cipher_name, encrypt_cipher_phone, decrypt_cipher_name, decrypt_cipher_phone
 
 
 class Migration(migrations.Migration):
@@ -27,18 +28,21 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(cipher_name),
-        migrations.RunPython(cipher_phone),
+        migrations.RunPython(encrypt_cipher_name, decrypt_cipher_name),
+        migrations.RunPython(encrypt_cipher_phone, decrypt_cipher_phone),
     ]
-
 ```
 
-5. execute the migrate create manual
+6. execute the migrate create manual
 
 ```shell
  python manage.py migrate
 ```
 
-6. Validate this value is cipher in database using viewers database sqlite
-7. Visualise your info in admin
- 
+7. Validate this value is cipher in database using viewers database sqlite
+8. Visualise your info in admin
+
+9. Rollback migration to 0001
+ ```shell
+ python manage.py migrate demo 0001
+```
