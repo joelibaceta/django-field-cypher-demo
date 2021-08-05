@@ -4,11 +4,15 @@ from demo.cipher_field.cipher import Cipher
 class CipherField(models.CharField):
     description = 'Encrypt your field'
 
-    def __init__(self, *args, **kwargs):
-        self.cipher = Cipher(kwargs['token'])
-        self.token = kwargs['token']
-        kwargs.pop('token', None)
+    def __init__(self, token, *args, **kwargs):
+        self.cipher = Cipher(token)
+        self.token = token
         super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        kwargs['token'] = self.token
+        return name, path, args, kwargs
 
     def get_db_prep_value(self, value, connection, prepared=False):
         encripted = self.cipher.encrypt(value)

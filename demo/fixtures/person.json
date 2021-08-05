@@ -1,0 +1,23 @@
+[
+  {
+    "model": "demo.person",
+    "fields": {
+      "name": "Yahyr",
+      "phone": "960163968"
+    }
+  },
+  {
+    "model": "demo.person",
+    "fields": {
+      "name": "Jorge",
+      "phone": "987654321"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Belinda",
+      "phone": "123456789"
+    }
+  }
+]

@@ -1,6 +1,6 @@
 from django.test import TestCase
-from demo.models import Member
 
+from demo.models import Member
 
 # Create your tests here.
 class MemberTest(TestCase):
@@ -35,3 +35,7 @@ class MemberTest(TestCase):
     def test_find_by_two_fields(self):
         member = Member.cipher.filter(first_name='Jhon', last_name='Alex')
         self.assertEqual(member.first().last_name, 'Alex')
+
+
+
+
