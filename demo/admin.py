@@ -11,5 +11,5 @@ class MemberAdmin(admin.ModelAdmin):
 
 @admin.register(Person)
 class MemberAdmin(admin.ModelAdmin):
-    # list_display = ('name', 'phone', )
-    list_display = ('name', 'phone', 'name_cipher', 'phone_cipher',)
+    list_display = ('name', 'phone', )
+    # list_display = ('name', 'phone', 'name_cipher', 'phone_cipher',)

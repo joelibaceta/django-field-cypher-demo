@@ -1,13 +1,39 @@
+from django.core.exceptions import FieldError
 from django.db import models
 from demo.cipher_field.cipher import Cipher
+from django.utils.functional import cached_property
 
-class CipherField(models.CharField):
+__all__ = [
+    'CipherField',
+    'CipherCharField',
+]
+
+
+class CipherField(models.Field):
     description = 'Encrypt your field'
+    _internal_type = 'CipherField'
 
-    def __init__(self, token, *args, **kwargs):
-        self.cipher = Cipher(token)
-        self.token = token
-        super().__init__(*args, **kwargs)
+    def __init__(self, token=None, *args, **kwargs):
+        if not token:
+            self.cipher = None
+            self.token = token
+        else:
+            self.cipher = Cipher(token)
+            self.token = token
+        super(CipherField, self).__init__(*args, **kwargs)
+
+    def get_internal_type(self):
+        return self._internal_type
+
+    @cached_property
+    def validators(self):
+        self.__dict__['_internal_type'] = super(
+            CipherField, self
+        ).get_internal_type()
+        try:
+            return super(CipherField, self).validators
+        finally:
+            del self.__dict__['_internal_type']
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
@@ -15,9 +41,31 @@ class CipherField(models.CharField):
         return name, path, args, kwargs
 
     def get_db_prep_value(self, value, connection, prepared=False):
-        encripted = self.cipher.encrypt(value)
-        return encripted
+        if self.token is None:
+            return value
+        return self.cipher.encrypt(value)
 
     def from_db_value(self, value, expression, connection):
-        decrypt = self.cipher.decrypt(value)
-        return decrypt
+        if self.token is None:
+            return value
+        return self.cipher.decrypt(value)
+
+    def db_type(self, connection):
+        return self._internal_type
+
+
+def get_prep_lookup(self):
+    raise FieldError("{} '{}' does not support lookups".format(
+        self.lhs.field.__class__.__name__, self.lookup_name))
+
+
+for name, lookup in models.Field.class_lookups.items():
+    if name != 'isnull':
+        lookup_class = type('CipherField' + name, (lookup,), {
+            'get_prep_lookup': get_prep_lookup
+        })
+        CipherField.register_lookup(lookup_class)
+
+
+class CipherCharField(CipherField, models.CharField):
+    pass

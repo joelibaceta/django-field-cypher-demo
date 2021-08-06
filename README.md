@@ -9,9 +9,8 @@ An experiment about building a custom encrypted field
  python manage.py makemigrations
  python manage.py migrate
  python manage.py loaddata person.json
- python manage.py createsuperuser 
+ python manage.py createsuperuser --username yahyr --email yahyr@gmail.com
  python manage.py makemigrations --empty demo
-
  ```
 
 3. Copy and paste this extrac code in migration empty create
@@ -46,3 +45,17 @@ class Migration(migrations.Migration):
  ```shell
  python manage.py migrate demo 0001
 ```
+
+
+
+
+ migrations.AlterField(
+            model_name='person',
+            name='name',
+            field=demo.cipher_field.cipher_field.CipherField(blank=True, max_length=255, token=None),
+        ),
+migrations.AlterField(
+    model_name='person',
+    name='phone',
+    field=demo.cipher_field.cipher_field.CipherField(blank=True, max_length=255, token=None),
+),
