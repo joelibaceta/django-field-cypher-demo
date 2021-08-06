@@ -18,7 +18,8 @@ An experiment about building a custom encrypted field
 ```python
 from django.db import migrations
 
-from demo.cipher_migrate import encrypt_cipher_name, encrypt_cipher_phone, decrypt_cipher_name, decrypt_cipher_phone
+from demo.cipher_field.cipher_migrate import encrypt_cipher_name, encrypt_cipher_phone, decrypt_cipher_name,
+    decrypt_cipher_phone
 
 
 class Migration(migrations.Migration):

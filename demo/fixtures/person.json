@@ -19,5 +19,47 @@
       "name": "Belinda",
       "phone": "123456789"
     }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Joel",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Yina",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Andres",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Yance",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Xianna",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Xiabel",
+      "phone": "123456789"
+    }
   }
 ]

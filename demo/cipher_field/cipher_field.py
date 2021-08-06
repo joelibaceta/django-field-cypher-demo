@@ -1,4 +1,4 @@
-from django.core.exceptions import FieldError
+from django.core.exceptions import FieldError, ImproperlyConfigured
 from django.db import models
 from demo.cipher_field.cipher import Cipher
 from django.utils.functional import cached_property
@@ -14,6 +14,23 @@ class CipherField(models.Field):
     _internal_type = 'CipherField'
 
     def __init__(self, token=None, *args, **kwargs):
+
+        if kwargs.get('primary_key'):
+            raise ImproperlyConfigured(
+                "%s does not support primary_key=True."
+                % self.__class__.__name__
+            )
+        if kwargs.get('unique'):
+            raise ImproperlyConfigured(
+                "%s does not support unique=True."
+                % self.__class__.__name__
+            )
+        if kwargs.get('db_index'):
+            raise ImproperlyConfigured(
+                "%s does not support db_index=True."
+                % self.__class__.__name__
+            )
+
         if not token:
             self.cipher = None
             self.token = token

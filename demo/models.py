@@ -18,30 +18,16 @@ class Member(models.Model):
         return self.first_name
 
 
-# class Person(models.Model):
-#     name = models.CharField(max_length=255, )
-#     phone = models.CharField(max_length=255, )
-#     name_cipher = CipherField(max_length=255, token=b'mi84uq0CPvQF1hPbU-pbXy3uKr1iRgSgw1D24vZ_5tA=', blank=True, )
-#     phone_cipher = CipherField(max_length=255, token=b'mi84uq0CPvQF1hPbU-pbXy3uKr1iRgSgw1D24vZ_5tA=', blank=True, )
-#     objects = models.Manager()  # The default manager.
-#     cipher_fields = ['name_cipher', 'phone_cipher']
-#     objects = CipherFieldManager()  # Custom manager
-#
-#     def __str__(self):
-#         return self.name
-
-
 class Person(models.Model):
     # name = models.CharField(max_length=255, )
     # phone = models.CharField(max_length=255, )
     # name = CipherCharField(max_length=255, blank=True, )
     # phone = CipherCharField(max_length=255, blank=True, )
-    name = CipherCharField(max_length=255, token=b'mi84uq0CPvQF1hPbU-pbXy3uKr1iRgSgw1D24vZ_5tA=', blank=True, )
-    phone = CipherCharField(max_length=255, token=b'mi84uq0CPvQF1hPbU-pbXy3uKr1iRgSgw1D24vZ_5tA=', blank=True, )
+    name = CipherCharField(max_length=255, token=b'mi84uq0CPvQF1hPbU-pbXy3uKr1iRgSgw1D24vZ_5tA=', )
+    phone = CipherCharField(max_length=255, token=b'mi84uq0CPvQF1hPbU-pbXy3uKr1iRgSgw1D24vZ_5tA=', )
     objects = models.Manager()  # The default manager.
     cipher_fields = ['name', 'phone']
     objects = CipherFieldManager()  # Custom manager
 
     def __str__(self):
         return self.name
-        # migrations.RunPython(encrypt_all_field)
