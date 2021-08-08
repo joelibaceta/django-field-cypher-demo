@@ -6,6 +6,7 @@ from django.utils.functional import cached_property
 __all__ = [
     'CipherField',
     'CipherCharField',
+    'CipherTextField',
 ]
 
 
@@ -68,7 +69,7 @@ class CipherField(models.Field):
         return self.cipher.decrypt(value)
 
     def db_type(self, connection):
-        return self._internal_type
+        return 'text'
 
 
 def get_prep_lookup(self):
@@ -86,3 +87,12 @@ for name, lookup in models.Field.class_lookups.items():
 
 class CipherCharField(CipherField, models.CharField):
     pass
+
+    def db_type(self, connection):
+        return 'char'
+
+class CipherTextField(CipherField, models.TextField):
+    pass
+
+    def db_type(self, connection):
+        return 'text'

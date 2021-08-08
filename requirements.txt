@@ -1,2 +1,3 @@
 cryptography
 django
+psycopg2-binary

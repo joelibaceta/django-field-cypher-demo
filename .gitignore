@@ -1,7 +1,11 @@
-cipher-env
+.venv/
 .vscode
+
+data/
+
+cipher-env
 __pycache__
 
 .idea/
-.venv/
-.python-version
+
+db.sqlite3
