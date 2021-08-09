@@ -33,8 +33,8 @@ class CipherField(models.Field):
             )
 
         if not token:
-            self.cipher = None
             self.token = token
+            self.cipher = None
         else:
             self.cipher = Cipher(token)
             self.token = token
@@ -54,7 +54,7 @@ class CipherField(models.Field):
             del self.__dict__['_internal_type']
 
     def deconstruct(self):
-        name, path, args, kwargs = super().deconstruct()
+        name, path, args, kwargs = super(CipherField, self).deconstruct()
         kwargs['token'] = self.token
         return name, path, args, kwargs
 
@@ -63,7 +63,7 @@ class CipherField(models.Field):
             return value
         return self.cipher.encrypt(value)
 
-    def from_db_value(self, value, expression, connection):
+    def from_db_value(self, value, expression, connection, context):
         if self.token is None:
             return value
         return self.cipher.decrypt(value)

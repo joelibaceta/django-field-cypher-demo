@@ -21,4 +21,6 @@ An experiment about building a custom encrypted field
  python manage.py migrate demo 0001
 ```
 
- 
+ User for test use sqlite 
+ yahyr@gmail.com
+ Demo123456
