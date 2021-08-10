@@ -1,5 +1,5 @@
 from django.contrib import admin
-from demo.models import Member
+from demo.models import Member, Person
 
 
 # Register your models here.
@@ -8,4 +8,7 @@ class MemberAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email', 'phone')
     search_fields = ('first_name',)
 
-# admin.site.register(Member, MemberAdmin)
+
+@admin.register(Person)
+class MemberAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'phone', )

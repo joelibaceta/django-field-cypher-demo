@@ -25,7 +25,7 @@ class CipherFieldManager(models.Manager):
 
             kwargs['id__in'] = matched_ids
 
-        return super().get(*args, **kwargs)
+        return super(CipherFieldManager, self).get(*args, **kwargs)
 
     def filter(self, *args, **kwargs):
         fields = [
@@ -56,4 +56,4 @@ class CipherFieldManager(models.Manager):
 
             kwargs['id__in'] = matched_ids
 
-        return super().filter(*args, **kwargs)
+        return super(CipherFieldManager, self).filter(*args, **kwargs)

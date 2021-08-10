@@ -1,0 +1,74 @@
+[
+  {
+    "model": "demo.person",
+    "fields": {
+      "name": "Yahyr",
+      "email": "yahyr@gmail.com",
+      "phone": "960163968"
+    }
+  },
+  {
+    "model": "demo.person",
+    "fields": {
+      "name": "Jorge",
+      "email": "jorge@gmail.com",
+      "phone": "987654321"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Belinda",
+      "email": "belinda@gmail.com",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Joel",
+      "email": "joel@gmail.com",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Yina",
+      "email": "yina@gmail.com",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Andres",
+      "email": "andres@gmail.com",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Yance",
+      "email": "yance@gmail.com",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Xianna",
+      "email": "xianna@gmail.com",
+      "phone": "123456789"
+    }
+  },
+   {
+    "model": "demo.person",
+    "fields": {
+      "name": "Xiabel",
+      "email": "xiabel@gmail.com",
+      "phone": "123456789"
+    }
+  }
+]
